@@ -12,6 +12,11 @@ class Array
     else
       columns = self.first.class.column_names.map(&:to_sym) - Array(options[:except]).map(&:to_sym)
     end
+    
+    # Added the ability to include extra methods
+    if options[:include]
+      options[:include].each { |col| columns << col.to_sym }
+    end
 
     return '' if columns.empty?
 
